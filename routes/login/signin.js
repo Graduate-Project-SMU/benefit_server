@@ -1,36 +1,30 @@
 var express = require('express');
 var router = express.Router();
-var Client = require('mongodb').MongoClient;
-
-router.post('/', (req, res) => {
-  Client.connect('mongodb://13.125.61.58:27017/mydb', function(error, db) {
-    if (error) {
+var UserData = require('../../config/dbconfig');
+var session = require('express-session');
+router.post('/', function(req,res,next){
+  UserData.find({email:req.body.email,password:req.body.password}, function(err, data) {
+    if (err) {
       res.status(500).send({
-        stat: "fail",
-        message : "error"
+        stat : "fail",
       });
-      conole.log(error);
+      console.log("find error");
     } else {
-      var info = {
-        name: 'Dalsu',
-        age: 26,
-        gender: 'M'
-      };
-      var dbo = db.db("mydb");
-      dbo.collection('student').insert(info);
-      res.status(201).send({
-        name : info.name,
-        age : info.age,
-        gender : info.gender
-      });
-      console.log("connected" + db);
-
-      db.close();
+      if(data[0].email){
+        res.status(201).send({
+          stat : "success",
+          message : "login success"
+        });
+      }else{
+        res.status(201).send({
+          stat : "fail",
+          message : "login fail"
+        });
+      }
 
     }
   });
 });
-
 
 
 module.exports = router;
