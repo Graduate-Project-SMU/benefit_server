@@ -27,6 +27,7 @@ router.post('/', function (req, res, next) {
                             req.session.email = data[0].email;
                             console.log(req.session.email);
                             req.session.save();
+                            //logout session ㅍㅏ기
                             res.status(201).send({
                                 stat: "success",
                                 message: "login success"
@@ -35,7 +36,7 @@ router.post('/', function (req, res, next) {
                             res.status(500).send({
                                 stat: "fail",
                                 msgs: "login fail"
-                            })
+                            });
                         }
                     }
                 });
