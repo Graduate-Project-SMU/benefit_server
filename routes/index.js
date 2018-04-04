@@ -1,12 +1,13 @@
 var express = require('express');
 var router = express.Router();
 var login = require('./login/index');
+var mypage = require('./mypage/index');
 // var mongoose = require('mongoose');
 // var con = mongoose.connect('mongodb://13.125.61.58:27017/mydb');
 // var Schema = mongoose.Schema;
 
 router.use('/login', login);
-
+router.use('/mypage', mypage);
 
 
 
