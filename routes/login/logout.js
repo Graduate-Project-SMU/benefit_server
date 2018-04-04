@@ -8,6 +8,7 @@ router.get('/', function (req, res, next) {
     console.log(req.session.email + "!!!");
     if(req.session.email){
         req.session.destroy();
+        
         if(req.session){
             res.status(500).send({
                 stat:"fail",
