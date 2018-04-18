@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var crypto = require('crypto');
-var UserData = require('../../config/dbconfig');
+var UserData = require('../../config/user_dbconfig');
 var session = require('express-session');
 
 router.get('/', function (req, res, next) {

@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-var con = mongoose.connect('mongodb://13.125.61.58:27017/mydb');
+var con = require('./connection');
 var Schema = mongoose.Schema;
 var userDataSchema = new Schema({
     //title : {type : String, required : true},
@@ -24,7 +24,7 @@ var userDataSchema = new Schema({
     posi: {
         type: String,
         required: true
-    }, //근무 형태 ex)일반인, 군인, 곰신 ..
+    }, //신분 ex)일반인, 군인, 곰신 ..
     mKind: {
         type: String,
         required: false

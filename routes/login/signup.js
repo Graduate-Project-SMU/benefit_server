@@ -5,7 +5,7 @@ var async = require('async');
 // var mongoose = require('mongoose');
 // var con = mongoose.connect('mongodb://13.125.61.58:27017/mydb');
 // var Schema = mongoose.Schema;
-var UserData = require('../../config/dbconfig');
+var UserData = require('../../config/user_dbconfig');
 
 
 router.post('/', function (req, res, next) {
