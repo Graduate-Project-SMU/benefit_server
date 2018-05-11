@@ -76,8 +76,8 @@ router.post('/', function (req, res, next) {
                         stat: "success",
                         msgs: "join and get data success",
                         store_info: data,
-                        o_benefit: o_benefit,
-                        a_benefit: a_benefit
+                        o_benefit: o_benefit[0].o_company.content,
+                        a_benefit: a_benefit[0].a_company.content
                     });
                     callback("join and get data success", null);
                 }
