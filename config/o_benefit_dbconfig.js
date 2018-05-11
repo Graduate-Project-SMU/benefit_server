@@ -2,26 +2,33 @@ var mongoose = require('mongoose');
 var con = require('./connection');
 var Schema = mongoose.Schema;
 var benefitSchema = new Schema({
-    telecom : {
-        type : String,
-        required : true
-    },
-    m_category : {
-        type : String,
-        required : true
-    },
-    s_category : {
-        type : String,
-        required: true
-    },
-    company : {
-        type : String,
-        required : true
-    },
-    content : {
-        type : String,
-         required : true
-    }
+
+        // telecom : {
+        //     type : String,
+        //         required : true
+        // },
+        m_category : {
+            type : String,
+                required : true
+        },
+        s_category : {
+            type : String,
+                required: true
+        },
+        company : {
+            type : String,
+            required : true
+        },
+        /*
+        *   for example,
+        *   content : {
+        *       telecom : "SKT",
+        *       discount : "1000원당 10퍼 할인"
+        *   }
+        * */
+        content : [Schema.Types.Mixed]
+
+
 
 }, {
     collection: 'o_benefit'

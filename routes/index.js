@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var login = require('./login/index');
 var mypage = require('./mypage/index');
-var test = require('./benefit/index');
+var benefit = require('./benefit/index');
 
 // var mongoose = require('mongoose');
 // var con = mongoose.connect('mongodb://13.125.61.58:27017/mydb');
@@ -10,7 +10,7 @@ var test = require('./benefit/index');
 
 router.use('/login', login);
 router.use('/mypage', mypage);
-router.use('/benefit', test);
+router.use('/benefit', benefit);
 
 
 // var userDataSchema = new Schema({
