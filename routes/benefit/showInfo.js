@@ -75,7 +75,12 @@ router.post('/', function (req, res, next) {
                     res.status(200).send({
                         stat: "success",
                         msgs: "join and get data success",
-                        store_info: data,
+                        store_info: {
+                            company_name : data[0].company_name,
+                            branch : data[0].branch,
+                            address : data[0].address,
+                            telephone : data[0].telephone
+                        },
                         o_benefit: o_benefit[0].o_company.content,
                         a_benefit: a_benefit[0].a_company.content
                     });
