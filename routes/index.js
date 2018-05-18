@@ -4,6 +4,7 @@ var login = require('./login/index');
 var mypage = require('./mypage/index');
 var benefit = require('./benefit/index');
 
+
 // var mongoose = require('mongoose');
 // var con = mongoose.connect('mongodb://13.125.61.58:27017/mydb');
 // var Schema = mongoose.Schema;
