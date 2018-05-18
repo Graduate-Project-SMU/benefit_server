@@ -17,7 +17,7 @@ router.post('/', function (req, res, next) {
     let o_company_id;
     let taskArray = [
         (callback) => {
-            if (req.session.email) {
+            if (req.session.nickname) {
                 console.log("show Info");
                 callback(null);
             } else {

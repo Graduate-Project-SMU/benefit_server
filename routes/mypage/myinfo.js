@@ -4,10 +4,10 @@ var crypto = require('crypto');
 var UserData = require('../../config/user_dbconfig');
 var session = require('express-session');
 router.post('/', function (req, res, next) {
-    console.log(req.session.email);
-    if (req.session.email) {
+    console.log(req.session.nickname);
+    if (req.session.nickname) {
         UserData.find({
-            email: req.session.email
+            email: req.session.nickname
         }, function (err, data) {
             if (err) {
                 res.status(500).send({
