@@ -45,8 +45,8 @@ router.post('/', function (req, res, next) { //1
         },
         (hashed, data, callback)=>{
             if(hashed.toString('base64') == data[0].password){
-                req.session.email = data[0].email;
-                console.log(req.session.email);
+                req.session.nickname = data[0].nickname;
+                console.log(req.session.nickname);
                 req.session.save();
                 //logout session ㅍㅏ기
                 res.status(201).send({
