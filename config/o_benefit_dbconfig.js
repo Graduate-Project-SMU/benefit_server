@@ -3,17 +3,13 @@ var con = require('./connection');
 var Schema = mongoose.Schema;
 var benefitSchema = new Schema({
 
-        // telecom : {
-        //     type : String,
-        //         required : true
-        // },
         m_category : {
             type : String,
-                required : true
+            required : true
         },
         s_category : {
             type : String,
-                required: true
+            required: true
         },
         company : {
             type : String,
@@ -25,6 +21,7 @@ var benefitSchema = new Schema({
         *       telecom : "SKT",
         *       discount : "1000원당 10퍼 할인"
         *   }
+        *
         * */
         content : [Schema.Types.Mixed]
 
