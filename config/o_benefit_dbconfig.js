@@ -2,12 +2,7 @@ var mongoose = require('mongoose');
 var con = require('./connection');
 var Schema = mongoose.Schema;
 var benefitSchema = new Schema({
-
-        m_category : {
-            type : String,
-            required : true
-        },
-        s_category : {
+        category : {
             type : String,
             required: true
         },
