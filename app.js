@@ -6,21 +6,15 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var index = require('./routes/index');
+const config = require('./config/secret');
 
 
 var app = express();
 
-var session = require('express-session');
-app.use(session({
- secret: '@#@$MYSIGN#@$#$',
- resave: false,
- saveUninitialized: true
-}));
-
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
-
+app.set('jwt-secret', config.secret);
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
