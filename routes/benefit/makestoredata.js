@@ -7,6 +7,9 @@ var o_benefitData = require('../../config/o_benefit_dbconfig')
 var storeData = require('../../config/store_dbconfig');
 var session = require('express-session');
 var async = require('async');
+let authMiddleware = require('../middleware/auth');
+
+router.use('/', authMiddleware);
 router.post('/', function (req, res, next) {
 
     console.log(req.session.email);
