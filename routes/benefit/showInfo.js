@@ -5,27 +5,15 @@ var UserData = require('../../config/user_dbconfig');
 var a_benefitData = require('../../config/a_benefit_dbconfig');
 var o_benefitData = require('../../config/o_benefit_dbconfig')
 var storeData = require('../../config/store_dbconfig');
-var session = require('express-session');
 var async = require('async');
+let authMiddleware = require('../middleware/auth');
+
+router.use('/', authMiddleware);
 router.post('/', function (req, res, next) {
-    console.log(req.session.email);
     let reqLangitude = req.body.langitude;
     let reqLongitude = req.body.longitude;
 
     let taskArray = [
-        (callback) => {
-            if (req.session.nickname) {
-                console.log("show Info");
-                callback(null);
-            } else {
-                res.status(500).send({
-                    stat: "fail",
-                    msgs: "no session"
-                });
-                callback("no session");
-
-            }
-        },
         (callback) => {
             storeData.find({
                 langitude: reqLangitude,
@@ -39,15 +27,17 @@ router.post('/', function (req, res, next) {
                     callback("find error" + err);
                 }
                 else{
-                    callback(null, data);
+                    if(data) callback(null, data);
+                    else callback("Store not exists");
                 }
             });
         },
         (data, callback)=>{
-            storeData.find({
-                langitude: reqLangitude,
-                longitude: reqLongitude
-            }).populate('o_company').exec(function (err, o_benefit) {
+            // storeData.find({
+            //     langitude: reqLangitude,
+            //     longitude: reqLongitude
+            // }).populate('o_company').exec(function (err, o_benefit) {
+            data.populate('o_campany').exec(function (err, o_benefit){
                 if (err) {
                     res.status(500).send({
                         stat: "fail",
@@ -61,10 +51,11 @@ router.post('/', function (req, res, next) {
             });
         },
         (data, o_benefit, callback) => {
-            storeData.find({
-                langitude: reqLangitude,
-                longitude: reqLongitude
-            }).populate('a_company').exec(function (err, a_benefit) {
+            // storeData.find({
+            //     langitude: reqLangitude,
+            //     longitude: reqLongitude
+            // }).populate('a_company').exec(function (err, a_benefit) {
+            data.populate('a_company').exec(function (err, a_benefit) {
                 if (err) {
                     res.status(500).send({
                         stat: "fail",
