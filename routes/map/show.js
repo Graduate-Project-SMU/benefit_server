@@ -11,12 +11,14 @@ router.post('/:latt/:long/:category?', function (req, res, next) {
     const category = req.params.category;
     const long = req.params.long;
     const latt = req.params.latt;
+    let maxDistance = req.query.distance;
+    if(maxDistance == null || maxDistance == '') maxDistance = 1000;
     const taskArray = [
         callback => {
             storeSchema.find({
                 location : {
                     $near : {
-                        $maxDistance : 1000,
+                        $maxDistance : maxDistance,
                         $geometry : {
                             type: "Point",
                             coordinates: [long, latt]

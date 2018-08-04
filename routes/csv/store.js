@@ -85,7 +85,9 @@ router.post('/', function (req, res, next) {
                             location: {
                                 type: "Point",
                                 coordinates: [long, lat]
-                            }
+                            },
+                            latitude : lat,
+                            longitude : long
                         };
                         let insertData = new storeSchema(item);
                         insertData.save((err) => {
