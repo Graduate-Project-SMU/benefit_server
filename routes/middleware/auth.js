@@ -13,7 +13,7 @@ const authMiddleware = (req, res, next) => {
         if(err){
             return res.status(403).send({
                 stat: "fail",
-                msgs: "can't login"
+                msgs: "can't auth"
             });
         }else{
             if(decoded){
@@ -23,7 +23,7 @@ const authMiddleware = (req, res, next) => {
             else{
                 res.status(403).send({
                     stat: "fail",
-                    msgs: "can't login"
+                    msgs: "can't auth"
                 });
             }
         }

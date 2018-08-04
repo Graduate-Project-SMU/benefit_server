@@ -55,20 +55,22 @@ router.post('/', function (req, res, next) {
             },
             (a_benefit_datas, o_benefit_datas, datas, callback) => {
                 function aIdAndoIdfind(count) {
-
                     let a_data = null;
                     let o_data = null;
+                    let category = null;
+
                     for (let i = 0; i < a_benefit_datas.length; i++) {
                         if (datas[count].company == a_benefit_datas[i].company) {
                             a_data = a_benefit_datas[i]._id;
+                            category = a_benefit_datas[i].category;
                         }
                     }
                     for (let i = 0; i < o_benefit_datas.length; i++) {
                         if (datas[count].company == o_benefit_datas[i].company) {
                             o_data = o_benefit_datas[i]._id;
+                            category = o_benefit_datas[i].category;
                         }
                     }
-                    // if ((datas[count].location).coordinates[0] && (datas[count].location).coordinates[1] && a_data && o_data) {
                     if (a_data || o_data) {
                         let long = (datas[count].location).coordinates[0];
                         let lat = (datas[count].location).coordinates[1];
@@ -79,23 +81,22 @@ router.post('/', function (req, res, next) {
                             telephone: datas[count].telephone,
                             a_company: a_data,
                             o_company: o_data,
+                            category : category,
                             location: {
                                 type: "Point",
                                 coordinates: [long, lat]
-                            }
+                            },
+                            latitude : lat,
+                            longitude : long
                         };
                         let insertData = new storeSchema(item);
                         insertData.save((err) => {
                             if (err) {
                                 console.log(err);
-                            } else {
-                                console.log("inserting now");
                             }
                         });
                     }
                 }
-
-                // console.log(datas.length);
                 for (let i = 0; i < datas.length; i++) {
                     aIdAndoIdfind(i);
                 }

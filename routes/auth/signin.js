@@ -57,17 +57,17 @@ router.post('/', function (req, res, next) { //1
                 let token = jwt.sign(payload, secret, {expiresIn: '7d', algorithm:'HS256'});
                 res.status(201).send({
                     stat: "success",
-                    msgs: "login success",
+                    msgs: "auth success",
                     token: token
                 });
-                callback("login success", null);
+                callback("auth success", null);
             }
             else{
                 res.status(500).send({
                     stat:"fail",
-                    msgs: "login fail"
+                    msgs: "auth fail"
                 });
-                callback("login fail", null);
+                callback("auth fail", null);
             }
         }
     ];
