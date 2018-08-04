@@ -1,7 +1,7 @@
 let express = require('express');
 let router = express.Router();
-let dflt = require('./default');
+let show = require('./show');
 
-router.use('/', dflt);
+router.use('/', show);
 
 module.exports = router;
