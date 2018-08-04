@@ -1,7 +1,7 @@
 let express = require('express');
 let router = express.Router();
-let map = require('./map');
+let show = require('./show');
 
-router.use('/', map);
+router.use('/', show);
 
 module.exports = router;
