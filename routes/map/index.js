@@ -1,7 +1,7 @@
 let express = require('express');
 let router = express.Router();
-let map = require('./map');
+let dflt = require('./default');
 
-router.use('/', map);
+router.use('/', dflt);
 
 module.exports = router;

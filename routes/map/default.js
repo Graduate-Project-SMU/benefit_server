@@ -1,6 +1,5 @@
 var express = require('express');
 var router = express.Router();
-let storeData = require('../../config/store_dbconfig');
 let storeSchema = require('../../config/store');
 let authMiddleware = require('../middleware/auth');
 
@@ -22,9 +21,15 @@ router.post('/:latt/:long', function (req, res, next) {
         }
     }).find((error, results) => {
         if (error) {
-
+            res.status(500).send({
+                stat : "fail",
+                msgs : "Can't find store data"
+            });
         }else{
-
+            res.status(200).send({
+                stat : "success",
+                data : results
+            });
         }
         // console.log(results);
     });
