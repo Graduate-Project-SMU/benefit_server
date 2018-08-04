@@ -1,10 +1,7 @@
 var express = require('express');
 var router = express.Router();
-var myinfo = require('./myinfo');
+var mypage = require('./mypage');
 
-router.use('/myinfo', myinfo);
-
-
-
+router.use('/', mypage);
 
 module.exports = router;

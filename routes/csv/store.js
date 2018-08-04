@@ -68,7 +68,6 @@ router.post('/', function (req, res, next) {
                             o_data = o_benefit_datas[i]._id;
                         }
                     }
-                    // if ((datas[count].location).coordinates[0] && (datas[count].location).coordinates[1] && a_data && o_data) {
                     if (a_data || o_data) {
                         let long = (datas[count].location).coordinates[0];
                         let lat = (datas[count].location).coordinates[1];
@@ -94,8 +93,6 @@ router.post('/', function (req, res, next) {
                         });
                     }
                 }
-
-                // console.log(datas.length);
                 for (let i = 0; i < datas.length; i++) {
                     aIdAndoIdfind(i);
                 }
