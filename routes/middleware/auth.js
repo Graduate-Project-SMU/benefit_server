@@ -6,7 +6,10 @@ const authMiddleware = (req, res, next) => {
     const token = req.headers['x-access-token'] || req.query.token
 
     if (!token) {
-        return false;
+        return res.status(403).send({
+            stat: "fail",
+            msgs: "jwt needed"
+        });
     }
 
     jwt.verify(token, req.app.get('jwt-secret'), (err, decoded)=>{
