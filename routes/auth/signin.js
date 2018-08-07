@@ -4,7 +4,9 @@ var crypto = require('crypto');
 var UserData = require('../../config/user_dbconfig');
 var session = require('express-session');
 var async = require('async');
-router.post('/', function (req, res, next) { //1
+var jwt = require('jsonwebtoken');
+router.post('/', function (req, res, next) {
+
     let taskArray =[
         (callback)=>{
             UserData.find({

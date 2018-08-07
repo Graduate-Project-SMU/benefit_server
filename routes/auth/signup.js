@@ -6,6 +6,7 @@ var UserData = require('../../config/user_dbconfig');
 
 
 router.post('/', function (req, res, next) {
+    console.log("@#!@&*(#&!@$(&$*@(!@$")
     let taskArray = [
         (callback) => {
             let salt = crypto.randomBytes(32).toString('base64');

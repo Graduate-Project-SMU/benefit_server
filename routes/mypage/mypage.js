@@ -1,14 +1,12 @@
 var express = require('express');
 var router = express.Router();
-var crypto = require('crypto');
 var UserData = require('../../config/user_dbconfig');
-var session = require('express-session');
 let authMiddleware = require('../middleware/auth');
 
 router.use('/', authMiddleware);
-router.post('/', function (req, res, next) {
+router.get('/', function (req, res, next) {
     UserData.find({
-        email: req.session.nickname
+        email: req.decoded.email
     }, function (err, data) {
         if (err) {
             res.status(500).send({
