@@ -22,7 +22,21 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/swagger-ui', express.static(path.join(__dirname, './node_modules/swagger-ui/dist')));
+app.use('/v1/swagger.json', function(req, res) {
+    res.json(require('./swagger.json'));
+});
+app.use('/swagger', function (req, res) {
+    res.redirect('/swagger-ui?url=/v1/swagger.json');
+});
 
+
+// app.use('/swagger.json', function(req, res) {
+//     res.json(require('./swagger.json'));
+// });
+// app.use('/swagger', function (req, res) {
+//     res.redirect('/swagger-ui?url=/swagger.json');
+// });
 app.use('/', index);
 
 
