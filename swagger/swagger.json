@@ -21,6 +21,10 @@
       "description": "Show detail information of stores"
     },
     {
+      "name": "board",
+      "description": "Benefit Board function"
+    },
+    {
       "name": "map",
       "description": "Show all of stores or specific of stores around user"
     },
@@ -133,6 +137,178 @@
             "required": true,
             "type": "number",
             "format": "float"
+          },
+          {
+            "name": "X-Access-Token",
+            "in": "header",
+            "description": "JWT",
+            "type": "apiKey"
+          },
+          {
+            "name": "token",
+            "in": "query",
+            "description": "JWT",
+            "type": "apiKey"
+          }
+        ],
+        "responses": {
+          "500": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/board":{
+      "get":{
+        "tags": [
+          "board"
+        ],
+        "summary": "Show all of boards",
+        "description": "",
+        "operationId": "boardShow",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "X-Access-Token",
+            "in": "header",
+            "description": "JWT",
+            "type": "apiKey"
+          },
+          {
+            "name": "token",
+            "in": "query",
+            "description": "JWT",
+            "type": "apiKey"
+          }
+        ],
+        "responses": {
+          "500": {
+            "description": "Invalid input"
+          }
+        }
+      },
+      "post":{
+        "tags": [
+          "board"
+        ],
+        "summary": "Board Create",
+        "description": "",
+        "operationId": "boardCreate",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "X-Access-Token",
+            "in": "header",
+            "description": "JWT",
+            "type": "apiKey"
+          },
+          {
+            "name": "token",
+            "in": "query",
+            "description": "JWT",
+            "type": "apiKey"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "title, content of board",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/BoardCreate"
+            }
+          }
+        ],
+        "responses": {
+          "500": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/board/{_id}":{
+      "put":{
+        "tags": [
+          "board"
+        ],
+        "summary": "Board Edit",
+        "description": "",
+        "operationId": "boardEdit",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "_id",
+            "in": "path",
+            "description": "board id",
+            "required": true,
+            "type": "object"
+          },
+          {
+            "name": "X-Access-Token",
+            "in": "header",
+            "description": "JWT",
+            "type": "apiKey"
+          },
+          {
+            "name": "token",
+            "in": "query",
+            "description": "JWT",
+            "type": "apiKey"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "title, content of board",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/BoardEdit"
+            }
+          }
+        ],
+        "responses": {
+          "500": {
+            "description": "Invalid input"
+          }
+        }
+      },
+      "delete":{
+        "tags": [
+          "board"
+        ],
+        "summary": "Board Delete",
+        "description": "",
+        "operationId": "boardDelete",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "_id",
+            "in": "path",
+            "description": "board id",
+            "required": true,
+            "type": "string"
           },
           {
             "name": "X-Access-Token",
@@ -336,6 +512,34 @@
       },
       "xml": {
         "name": "Benefit"
+      }
+    },
+    "BoardCreate":{
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "content": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "BoardCreate"
+      }
+    },
+    "BoardEdit":{
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "content": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "BoardEdit"
       }
     },
     "Order": {

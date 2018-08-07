@@ -21,6 +21,10 @@
       "description": "상점에 대한 자세한 할인 정보"
     },
     {
+      "name": "board",
+      "description": "Benefit 게시판"
+    },
+    {
       "name": "map",
       "description": "사용자 주변 반경의 상점들의 정보"
     },
@@ -133,6 +137,178 @@
             "required": true,
             "type": "number",
             "format": "float"
+          },
+          {
+            "name": "X-Access-Token",
+            "in": "header",
+            "description": "JWT",
+            "type": "apiKey"
+          },
+          {
+            "name": "token",
+            "in": "query",
+            "description": "JWT",
+            "type": "apiKey"
+          }
+        ],
+        "responses": {
+          "500": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/board":{
+      "get":{
+        "tags": [
+          "board"
+        ],
+        "summary": "게시글 조회",
+        "description": "",
+        "operationId": "boardShow",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "X-Access-Token",
+            "in": "header",
+            "description": "JWT",
+            "type": "apiKey"
+          },
+          {
+            "name": "token",
+            "in": "query",
+            "description": "JWT",
+            "type": "apiKey"
+          }
+        ],
+        "responses": {
+          "500": {
+            "description": "Invalid input"
+          }
+        }
+      },
+      "post":{
+        "tags": [
+          "board"
+        ],
+        "summary": "게시글 생성",
+        "description": "",
+        "operationId": "boardCreate",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "X-Access-Token",
+            "in": "header",
+            "description": "JWT",
+            "type": "apiKey"
+          },
+          {
+            "name": "token",
+            "in": "query",
+            "description": "JWT",
+            "type": "apiKey"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "게시글 제목, 내용",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/BoardCreate"
+            }
+          }
+        ],
+        "responses": {
+          "500": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/board/{_id}":{
+      "put":{
+        "tags": [
+          "board"
+        ],
+        "summary": "게시글 수정",
+        "description": "",
+        "operationId": "boardEdit",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "_id",
+            "in": "path",
+            "description": "게시글 id",
+            "required": true,
+            "type": "object"
+          },
+          {
+            "name": "X-Access-Token",
+            "in": "header",
+            "description": "JWT",
+            "type": "apiKey"
+          },
+          {
+            "name": "token",
+            "in": "query",
+            "description": "JWT",
+            "type": "apiKey"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "게시글 제목, 내용",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/BoardEdit"
+            }
+          }
+        ],
+        "responses": {
+          "500": {
+            "description": "Invalid input"
+          }
+        }
+      },
+      "delete":{
+        "tags": [
+          "board"
+        ],
+        "summary": "게시글 삭제",
+        "description": "",
+        "operationId": "boardDelete",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "_id",
+            "in": "path",
+            "description": "게시글 id",
+            "required": true,
+            "type": "string"
           },
           {
             "name": "X-Access-Token",
@@ -336,6 +512,34 @@
       },
       "xml": {
         "name": "Benefit"
+      }
+    },
+    "BoardCreate":{
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "content": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "BoardCreate"
+      }
+    },
+    "BoardEdit":{
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "content": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "BoardEdit"
       }
     },
     "Order": {

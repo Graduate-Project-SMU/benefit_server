@@ -7,6 +7,7 @@ let authMiddleware = require('../middleware/auth');
 
 router.use('/', authMiddleware);
 router.put('/:_id', function (req, res, next) {
+    console.log("@@U#(!#U!%!!!");
     let now = moment();
     let writetime = now.format('YYYY-MM-DD HH:mm:ss');
     let taskArray = [
