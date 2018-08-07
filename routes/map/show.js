@@ -6,8 +6,8 @@ let authMiddleware = require('../middleware/auth');
 
 
 
-// router.use('/', authMiddleware);
-router.post('/:latt/:long/:category?', function (req, res, next) {
+router.use('/', authMiddleware);
+router.get('/:latt/:long/:category?', function (req, res, next) {
     const category = req.params.category;
     const long = req.params.long;
     const latt = req.params.latt;

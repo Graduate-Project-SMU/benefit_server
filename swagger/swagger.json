@@ -1,0 +1,515 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "",
+    "version": "1.0.0",
+    "title": "Benefit Server",
+    "termsOfService": "",
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "host": "localhost:3000",
+  "tags": [
+    {
+      "name": "auth",
+      "description": "Benefit Authentication"
+    },
+    {
+      "name": "benefit",
+      "description": "Show detail information of stores"
+    },
+    {
+      "name": "map",
+      "description": "Show all of stores or specific of stores around user"
+    },
+    {
+      "name": "mypage",
+      "description": "Show detail information of user"
+    }
+  ],
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/auth/signin":{
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "Sign in",
+        "description": "",
+        "operationId": "signIn",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Email and Password need to signin",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Signin"
+            }
+          }
+        ],
+        "responses": {
+          "500": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/auth/signup":{
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "Sign up",
+        "description": "",
+        "operationId": "signUp",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Process of Sign up",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Signup"
+            }
+          }
+        ],
+        "responses": {
+          "500": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/benefit/{latt}/{long}":{
+      "get": {
+        "tags": [
+          "benefit"
+        ],
+        "summary": "Show detail information of stores",
+        "description": "",
+        "operationId": "benefit",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "latt",
+            "in": "path",
+            "description": "latitude of store",
+            "required": true,
+            "type": "number",
+            "format": "float"
+          },
+          {
+            "name": "long",
+            "in": "path",
+            "description": "longitude of store",
+            "required": true,
+            "type": "number",
+            "format": "float"
+          },
+          {
+            "name": "X-Access-Token",
+            "in": "header",
+            "description": "JWT",
+            "type": "apiKey"
+          },
+          {
+            "name": "token",
+            "in": "query",
+            "description": "JWT",
+            "type": "apiKey"
+          }
+        ],
+        "responses": {
+          "500": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/map/{latt}/{long}/{category}":{
+      "get": {
+        "tags": [
+          "map"
+        ],
+        "summary": "Show all of stores or specific of stores around user",
+        "description": "",
+        "operationId": "map",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "latt",
+            "in": "path",
+            "description": "latitude of user",
+            "required": true,
+            "type": "number",
+            "format": "float"
+          },
+          {
+            "name": "long",
+            "in": "path",
+            "description": "longitude of user",
+            "required": true,
+            "type": "number",
+            "format": "float"
+          },
+          {
+            "name": "category",
+            "in": "path",
+            "description": "category of store",
+            "type": "string"
+          },
+          {
+            "name": "X-Access-Token",
+            "in": "header",
+            "description": "JWT",
+            "type": "apiKey"
+          },
+          {
+            "name": "token",
+            "in": "query",
+            "description": "JWT",
+            "type": "apiKey"
+          }
+        ],
+        "responses": {
+          "500": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/mypage":{
+      "get": {
+        "tags": [
+          "mypage"
+        ],
+        "summary": "Show detail information of user",
+        "description": "",
+        "operationId": "mypage",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "X-Access-Token",
+            "in": "header",
+            "description": "JWT",
+            "type": "apiKey"
+          },
+          {
+            "name": "token",
+            "in": "query",
+            "description": "JWT",
+            "type": "apiKey"
+          }
+        ],
+        "responses": {
+          "500": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    }
+  },
+  "securityDefinitions": {
+    "petstore_auth": {
+      "type": "oauth2",
+      "authorizationUrl": "http://petstore.swagger.io/api/oauth/dialog",
+      "flow": "implicit",
+      "scopes": {
+        "write:pets": "modify pets in your account",
+        "read:pets": "read your pets"
+      }
+    },
+    "api_key": {
+      "type": "apiKey",
+      "name": "api_key",
+      "in": "header"
+    }
+  },
+  "definitions": {
+    "Signin":{
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "password":{
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "Signin"
+      }
+    },
+    "Signup":{
+      "type": "object",
+      "properties": {
+        "name":{
+          "type" : "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "nickname": {
+          "type" : "string"
+        },
+        "password":{
+          "type": "string"
+        },
+        "posi":{
+          "type" : "string"
+        },
+        "mKind":{
+          "type" : "string"
+        },
+        "mServiceStartDate":{
+          "type" : "string"
+        },
+        "gender":{
+          "type" : "string"
+        }
+      },
+      "xml": {
+        "name": "Signup"
+      }
+    },
+    "Benefit":{
+      "type": "object",
+      "properties": {
+        "name":{
+          "type" : "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "nickname": {
+          "type" : "string"
+        },
+        "password":{
+          "type": "string"
+        },
+        "posi":{
+          "type" : "string"
+        },
+        "mKind":{
+          "type" : "string"
+        },
+        "mServiceStartDate":{
+          "type" : "string"
+        },
+        "gender":{
+          "type" : "string"
+        }
+      },
+      "xml": {
+        "name": "Benefit"
+      }
+    },
+    "Order": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "petId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "quantity": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "shipDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "status": {
+          "type": "string",
+          "description": "Order Status",
+          "enum": [
+            "placed",
+            "approved",
+            "delivered"
+          ]
+        },
+        "complete": {
+          "type": "boolean",
+          "default": false
+        }
+      },
+      "xml": {
+        "name": "Order"
+      }
+    },
+    "Category": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "Category"
+      }
+    },
+    "User": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "username": {
+          "type": "string"
+        },
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "userStatus": {
+          "type": "integer",
+          "format": "int32",
+          "description": "User Status"
+        }
+      },
+      "xml": {
+        "name": "User"
+      }
+    },
+    "Tag": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "Tag"
+      }
+    },
+    "ApiResponse": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "type": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "Pet": {
+      "type": "object",
+      "required": [
+        "name",
+        "photoUrls"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "category": {
+          "$ref": "#/definitions/Category"
+        },
+        "name": {
+          "type": "string",
+          "example": "doggie"
+        },
+        "photoUrls": {
+          "type": "array",
+          "xml": {
+            "name": "photoUrl",
+            "wrapped": true
+          },
+          "items": {
+            "type": "string"
+          }
+        },
+        "tags": {
+          "type": "array",
+          "xml": {
+            "name": "tag",
+            "wrapped": true
+          },
+          "items": {
+            "$ref": "#/definitions/Tag"
+          }
+        },
+        "status": {
+          "type": "string",
+          "description": "pet status in the store",
+          "enum": [
+            "available",
+            "pending",
+            "sold"
+          ]
+        }
+      },
+      "xml": {
+        "name": "Pet"
+      }
+    }
+  },
+  "externalDocs": {
+    "description": "Find out more about Swagger",
+    "url": "http://swagger.io"
+  }
+}
