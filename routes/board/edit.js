@@ -59,20 +59,35 @@ router.put('/:_id', function (req, res, next) {
                                 });
                                 callback("can't update board error");
                             }else{
-                                res.status(200).send({
-                                    stat: "success",
-                                    msgs: "update board success",
-                                    data: {
-                                        _id : data._id,
-                                        author : data.author,
-                                        title : data.title,
-                                        content : req.body.content,
-                                        writetime: data.writetime
-                                    }
-                                });
-                                callback("update board success", null);
+                                if(req.body.title){
+                                    res.status(200).send({
+                                        stat: "success",
+                                        msgs: "update board success",
+                                        data: {
+                                            _id : data._id,
+                                            author : data.author,
+                                            title : req.body.title,
+                                            content : req.body.content,
+                                            writetime: data.writetime
+                                        }
+                                    });
+                                    callback("update board success", null);
+                                }else{
+                                    res.status(200).send({
+                                        stat: "success",
+                                        msgs: "update board success",
+                                        data: {
+                                            _id : data._id,
+                                            author : data.author,
+                                            title : data.title,
+                                            content : req.body.content,
+                                            writetime: data.writetime
+                                        }
+                                    });
+                                    callback("update board success", null);
+                                }
                             }
-                        })
+                        });
 
                     }
                 }
