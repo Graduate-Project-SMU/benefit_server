@@ -43,9 +43,7 @@ app.use('/v1/swagger-hangul.json', function(req, res) {
 });
 ```
 
-2. Swagger-spec 작성(swagger.json, swagger-hangul.json)
-
-3.app.js 라우팅 리다이렉션
+2.app.js 라우팅 리다이렉션
 
 ```javascript
 //app.js
