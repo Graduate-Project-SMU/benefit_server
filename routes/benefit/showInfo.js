@@ -11,7 +11,7 @@ var async = require('async');
 let authMiddleware = require('../middleware/auth');
 
 // router.use('/', authMiddleware);
-router.post('/:latt/:long', function (req, res, next) {
+router.get('/:latt/:long', function (req, res, next) {
     let latt = req.params.latt; let long = req.params.long;
     latt = parseFloat(latt); long = parseFloat(long);
 
