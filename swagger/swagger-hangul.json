@@ -1,0 +1,770 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "",
+    "version": "1.0.0",
+    "title": "Benefit Server",
+    "termsOfService": "",
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "host": "13.125.61.58:3008",
+  "tags": [
+    {
+      "name": "auth",
+      "description": "Benefit 인증"
+    },
+    {
+      "name": "benefit",
+      "description": "상점에 대한 자세한 할인 정보"
+    },
+    {
+      "name": "board",
+      "description": "Benefit 게시판"
+    },
+    {
+      "name": "map",
+      "description": "사용자 주변 반경의 상점들의 정보"
+    },
+    {
+      "name": "mypage",
+      "description": "사용자에 대한 정보"
+    }
+  ],
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/auth/signin":{
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "로그인",
+        "description": "",
+        "operationId": "signIn",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "이메일과 비밀번호 필요",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Signin"
+            }
+          }
+        ],
+        "responses": {
+          "500": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/auth/signup":{
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "회원가입",
+        "description": "",
+        "operationId": "signUp",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "회원가입 기능",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Signup"
+            }
+          }
+        ],
+        "responses": {
+          "500": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/benefit/store/{latt}/{long}":{
+      "get": {
+        "tags": [
+          "benefit"
+        ],
+        "summary": "상점의 할인에 대한 자세한 정보",
+        "description": "",
+        "operationId": "benefit",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "latt",
+            "in": "path",
+            "description": "상점의 위도",
+            "required": true,
+            "type": "number",
+            "format": "float"
+          },
+          {
+            "name": "long",
+            "in": "path",
+            "description": "상점의 경도",
+            "required": true,
+            "type": "number",
+            "format": "float"
+          },
+          {
+            "name": "X-Access-Token",
+            "in": "header",
+            "description": "JWT",
+            "type": "apiKey"
+          },
+          {
+            "name": "token",
+            "in": "query",
+            "description": "JWT",
+            "type": "apiKey"
+          }
+        ],
+        "responses": {
+          "500": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/benefit/category/{category}":{
+      "get": {
+        "tags": [
+          "benefit"
+        ],
+        "summary": "카테고리 선택으로 할인 혜택 조회",
+        "description": "",
+        "operationId": "benefit",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "category",
+            "in": "path",
+            "description": "할인혜택의 카테고리",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "X-Access-Token",
+            "in": "header",
+            "description": "JWT",
+            "type": "apiKey"
+          },
+          {
+            "name": "token",
+            "in": "query",
+            "description": "JWT",
+            "type": "apiKey"
+          }
+        ],
+        "responses": {
+          "500": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/board":{
+      "get":{
+        "tags": [
+          "board"
+        ],
+        "summary": "게시글 조회",
+        "description": "",
+        "operationId": "boardShow",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "X-Access-Token",
+            "in": "header",
+            "description": "JWT",
+            "type": "apiKey"
+          },
+          {
+            "name": "token",
+            "in": "query",
+            "description": "JWT",
+            "type": "apiKey"
+          }
+        ],
+        "responses": {
+          "500": {
+            "description": "Invalid input"
+          }
+        }
+      },
+      "post":{
+        "tags": [
+          "board"
+        ],
+        "summary": "게시글 생성",
+        "description": "",
+        "operationId": "boardCreate",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "X-Access-Token",
+            "in": "header",
+            "description": "JWT",
+            "type": "apiKey"
+          },
+          {
+            "name": "token",
+            "in": "query",
+            "description": "JWT",
+            "type": "apiKey"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "게시글 제목, 내용",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/BoardCreate"
+            }
+          }
+        ],
+        "responses": {
+          "500": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/board/{_id}":{
+      "put":{
+        "tags": [
+          "board"
+        ],
+        "summary": "게시글 수정",
+        "description": "",
+        "operationId": "boardEdit",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "_id",
+            "in": "path",
+            "description": "게시글 id",
+            "required": true,
+            "type": "object"
+          },
+          {
+            "name": "X-Access-Token",
+            "in": "header",
+            "description": "JWT",
+            "type": "apiKey"
+          },
+          {
+            "name": "token",
+            "in": "query",
+            "description": "JWT",
+            "type": "apiKey"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "게시글 제목, 내용",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/BoardEdit"
+            }
+          }
+        ],
+        "responses": {
+          "500": {
+            "description": "Invalid input"
+          }
+        }
+      },
+      "delete":{
+        "tags": [
+          "board"
+        ],
+        "summary": "게시글 삭제",
+        "description": "",
+        "operationId": "boardDelete",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "_id",
+            "in": "path",
+            "description": "게시글 id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "X-Access-Token",
+            "in": "header",
+            "description": "JWT",
+            "type": "apiKey"
+          },
+          {
+            "name": "token",
+            "in": "query",
+            "description": "JWT",
+            "type": "apiKey"
+          }
+        ],
+        "responses": {
+          "500": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/map/{latt}/{long}/{category}":{
+      "get": {
+        "tags": [
+          "map"
+        ],
+        "summary": "사용자 위치 반경 상점들의 정보",
+        "description": "",
+        "operationId": "map",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "latt",
+            "in": "path",
+            "description": "사용자의 위도",
+            "required": true,
+            "type": "number",
+            "format": "float"
+          },
+          {
+            "name": "long",
+            "in": "path",
+            "description": "사용자의 경도",
+            "required": true,
+            "type": "number",
+            "format": "float"
+          },
+          {
+            "name": "category",
+            "in": "path",
+            "description": "찾고자 하는 혜택의 카테고리",
+            "type": "string"
+          },
+          {
+            "name": "distance",
+            "in": "query",
+            "description": "반경 거리",
+            "type": "number",
+            "format" : "float"
+          },
+          {
+            "name": "X-Access-Token",
+            "in": "header",
+            "description": "JWT",
+            "type": "apiKey"
+          },
+          {
+            "name": "token",
+            "in": "query",
+            "description": "JWT",
+            "type": "apiKey"
+          }
+        ],
+        "responses": {
+          "500": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/mypage":{
+      "get": {
+        "tags": [
+          "mypage"
+        ],
+        "summary": "사용자의 정보",
+        "description": "",
+        "operationId": "mypage",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "X-Access-Token",
+            "in": "header",
+            "description": "JWT",
+            "type": "apiKey"
+          },
+          {
+            "name": "token",
+            "in": "query",
+            "description": "JWT",
+            "type": "apiKey"
+          }
+        ],
+        "responses": {
+          "500": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    }
+  },
+  "securityDefinitions": {
+    "petstore_auth": {
+      "type": "oauth2",
+      "authorizationUrl": "http://petstore.swagger.io/api/oauth/dialog",
+      "flow": "implicit",
+      "scopes": {
+        "write:pets": "modify pets in your account",
+        "read:pets": "read your pets"
+      }
+    },
+    "api_key": {
+      "type": "apiKey",
+      "name": "api_key",
+      "in": "header"
+    }
+  },
+  "definitions": {
+    "Signin":{
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "password":{
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "Signin"
+      }
+    },
+    "Signup":{
+      "type": "object",
+      "properties": {
+        "name":{
+          "type" : "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "nickname": {
+          "type" : "string"
+        },
+        "password":{
+          "type": "string"
+        },
+        "posi":{
+          "type" : "string"
+        },
+        "mKind":{
+          "type" : "string"
+        },
+        "mServiceStartDate":{
+          "type" : "string"
+        },
+        "gender":{
+          "type" : "string"
+        }
+      },
+      "xml": {
+        "name": "Signup"
+      }
+    },
+    "Benefit":{
+      "type": "object",
+      "properties": {
+        "name":{
+          "type" : "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "nickname": {
+          "type" : "string"
+        },
+        "password":{
+          "type": "string"
+        },
+        "posi":{
+          "type" : "string"
+        },
+        "mKind":{
+          "type" : "string"
+        },
+        "mServiceStartDate":{
+          "type" : "string"
+        },
+        "gender":{
+          "type" : "string"
+        }
+      },
+      "xml": {
+        "name": "Benefit"
+      }
+    },
+    "BoardCreate":{
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "content": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "BoardCreate"
+      }
+    },
+    "BoardEdit":{
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "content": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "BoardEdit"
+      }
+    },
+    "Order": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "petId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "quantity": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "shipDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "status": {
+          "type": "string",
+          "description": "Order Status",
+          "enum": [
+            "placed",
+            "approved",
+            "delivered"
+          ]
+        },
+        "complete": {
+          "type": "boolean",
+          "default": false
+        }
+      },
+      "xml": {
+        "name": "Order"
+      }
+    },
+    "Category": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "Category"
+      }
+    },
+    "User": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "username": {
+          "type": "string"
+        },
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "userStatus": {
+          "type": "integer",
+          "format": "int32",
+          "description": "User Status"
+        }
+      },
+      "xml": {
+        "name": "User"
+      }
+    },
+    "Tag": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "Tag"
+      }
+    },
+    "ApiResponse": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "type": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "Pet": {
+      "type": "object",
+      "required": [
+        "name",
+        "photoUrls"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "category": {
+          "$ref": "#/definitions/Category"
+        },
+        "name": {
+          "type": "string",
+          "example": "doggie"
+        },
+        "photoUrls": {
+          "type": "array",
+          "xml": {
+            "name": "photoUrl",
+            "wrapped": true
+          },
+          "items": {
+            "type": "string"
+          }
+        },
+        "tags": {
+          "type": "array",
+          "xml": {
+            "name": "tag",
+            "wrapped": true
+          },
+          "items": {
+            "$ref": "#/definitions/Tag"
+          }
+        },
+        "status": {
+          "type": "string",
+          "description": "pet status in the store",
+          "enum": [
+            "available",
+            "pending",
+            "sold"
+          ]
+        }
+      },
+      "xml": {
+        "name": "Pet"
+      }
+    }
+  },
+  "externalDocs": {
+    "description": "Find out more about Swagger",
+    "url": "http://swagger.io"
+  }
+}
