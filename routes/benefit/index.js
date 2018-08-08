@@ -1,10 +1,11 @@
 var express = require('express');
 var router = express.Router();
-var showInfo = require('./showInfo');
+var store = require('./store');
+var category = require('./category');
 
 
-
-router.use('/', showInfo);
+router.use('/store', store);
+router.use('/category', category);
 
 
 
