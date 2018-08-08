@@ -10,7 +10,7 @@
       "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
     }
   },
-  "host": "localhost:3000",
+  "host": "13.125.61.58:3008",
   "tags": [
     {
       "name": "auth",
@@ -105,7 +105,7 @@
         }
       }
     },
-    "/benefit/{latt}/{long}":{
+    "/benefit/store/{latt}/{long}":{
       "get": {
         "tags": [
           "benefit"
@@ -137,6 +137,50 @@
             "required": true,
             "type": "number",
             "format": "float"
+          },
+          {
+            "name": "X-Access-Token",
+            "in": "header",
+            "description": "JWT",
+            "type": "apiKey"
+          },
+          {
+            "name": "token",
+            "in": "query",
+            "description": "JWT",
+            "type": "apiKey"
+          }
+        ],
+        "responses": {
+          "500": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/benefit/category/{category}":{
+      "get": {
+        "tags": [
+          "benefit"
+        ],
+        "summary": "카테고리 선택으로 할인 혜택 조회",
+        "description": "",
+        "operationId": "benefit",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "category",
+            "in": "path",
+            "description": "할인혜택의 카테고리",
+            "required": true,
+            "type": "string"
           },
           {
             "name": "X-Access-Token",
@@ -364,6 +408,13 @@
             "in": "path",
             "description": "찾고자 하는 혜택의 카테고리",
             "type": "string"
+          },
+          {
+            "name": "distance",
+            "in": "query",
+            "description": "반경 거리",
+            "type": "number",
+            "format" : "float"
           },
           {
             "name": "X-Access-Token",
