@@ -10,7 +10,7 @@ let storeSchema = require('../../config/store');
 var async = require('async');
 let authMiddleware = require('../middleware/auth');
 
-// router.use('/', authMiddleware);
+router.use('/', authMiddleware);
 router.get('/:latt/:long', function (req, res, next) {
     let latt = req.params.latt; let long = req.params.long;
     latt = parseFloat(latt); long = parseFloat(long);
