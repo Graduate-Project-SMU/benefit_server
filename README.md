@@ -65,3 +65,46 @@ app.use('/swagger-hangul', function(req, res) {
 
 * url/swagger -> swagger 영문 버전
 * url/swagger-hangul -> swagger 한글 버전
+
+---
+
+## NGINX (Reverse Proxy 서버 구축)
+
+### Feature
+1. 비동기 이벤트 기반의 웹서버 소프트웨어
+2. 더 작은 자원으로 가볍고 높은 성능으로 빠르게 서비스를 제공하는 것이 목표
+3. 적은 쓰레드로 사용자 Request 처리
+
+### Reverse Proxy Server
+![image]('./img/ReverseProxy.png')
+
+1. 클라이언트에서 Origin Server에 직접 접속 할 수 없으므로 높은 보안성
+2. 한개의 Reverse Proxy Server에서 여러개의 Origin Server를 가질 수 있으므로 Load Balancing이 쉬워짐
+
+### Setting
+1. EC2 보안그룹(인바운드) 포트 열기
+2. EC2 nginx 설치
+  ```bash
+  $ sudo apt update -y && sudo apt-get install nginx -y
+  ```
+  혹은
+  ```bash
+  $ sudo apt update && sudo apt-get install nginx
+  ```
+3. nginx가 제대로 설치되었나 확인
+  ```bash
+  $ sudo systemctl status nginx
+  ```
+  혹은
+  ```bash
+  $ sudo nginx -v
+  ```
+4. nginx 시작 및 재시작해도 자동으로 시작되게 설정
+  ```bash
+  $ sudo systemctl start nginx
+  $ sudo systemctl enable nginx
+  ```
+5. nginx 설정파일 수정
+  ```bash
+  $ sudo vim /etc/nginx/sites-available/default 
+  ```
