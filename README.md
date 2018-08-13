@@ -76,7 +76,7 @@ app.use('/swagger-hangul', function(req, res) {
 3. 적은 쓰레드로 사용자 Request 처리
 
 ### Reverse Proxy Server
-![image]('./img/ReverseProxy.png')
+![image](img/ReverseProxy.png)
 
 1. 클라이언트에서 Origin Server에 직접 접속 할 수 없으므로 높은 보안성
 2. 한개의 Reverse Proxy Server에서 여러개의 Origin Server를 가질 수 있으므로 Load Balancing이 쉬워짐
