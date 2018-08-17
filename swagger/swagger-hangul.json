@@ -10,7 +10,7 @@
       "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
     }
   },
-  "host": "13.125.61.58:3008",
+  "host": "13.125.61.58:9090",
   "tags": [
     {
       "name": "auth",
