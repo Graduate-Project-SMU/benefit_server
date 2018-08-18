@@ -70,17 +70,12 @@ router.get('/:latt/:long', function (req, res, next) {
                     // let o_content = o_benefit[0].o_company.content;
                     let a_company = a_benefit[0].a_company;
                     let o_company = o_benefit[0].o_company;
-
-
-
                     let benefitCase = function(a_company, o_company){
                         if(a_company && o_company) return 1;
                         if(!a_company && o_company) return 2;
                         if(a_company && !o_company) return 3;
                     }
-
                     let benefitCaseNum = benefitCase(a_company, o_company);
-
                     if(benefitCaseNum == 1){
                         res.status(200).send({
                             stat: "success",
@@ -89,7 +84,8 @@ router.get('/:latt/:long', function (req, res, next) {
                                 company: data[0].company,
                                 branch: data[0].branch,
                                 address: data[0].address,
-                                telephone: data[0].telephone
+                                telephone: data[0].telephone,
+                                img: o_benefit[0].o_company.img
                             },
                             o_benefit: o_benefit[0].o_company.content,
                             a_benefit: a_benefit[0].a_company.content
@@ -103,7 +99,8 @@ router.get('/:latt/:long', function (req, res, next) {
                                 company: data[0].company,
                                 branch: data[0].branch,
                                 address: data[0].address,
-                                telephone: data[0].telephone
+                                telephone: data[0].telephone,
+                                img: o_benefit[0].o_company.img
                             },
                             o_benefit: o_benefit[0].o_company.content,
                             a_benefit: null
@@ -117,7 +114,8 @@ router.get('/:latt/:long', function (req, res, next) {
                                 company: data[0].company,
                                 branch: data[0].branch,
                                 address: data[0].address,
-                                telephone: data[0].telephone
+                                telephone: data[0].telephone,
+                                img: a_benefit[0].a_company.img
                             },
                             o_benefit: null,
                             a_benefit: a_benefit[0].a_company.content
