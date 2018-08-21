@@ -374,12 +374,68 @@
         }
       }
     },
+    "/map/{latt}/{long}":{
+      "get": {
+        "tags": [
+          "map"
+        ],
+        "summary": "Show all of stores or specific of stores around user without category",
+        "description": "",
+        "operationId": "map",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "latt",
+            "in": "path",
+            "description": "latitude of user",
+            "required": true,
+            "type": "number",
+            "format": "float"
+          },
+          {
+            "name": "long",
+            "in": "path",
+            "description": "longitude of user",
+            "required": true,
+            "type": "number",
+            "format": "float"
+          },
+          {
+            "name": "distance",
+            "in": "query",
+            "description": "distance around user",
+            "type": "number",
+            "format" : "float"
+          },
+          {
+            "name": "X-Access-Token",
+            "in": "header",
+            "description": "JWT",
+            "type": "apiKey"
+          },
+          {
+            "name": "token",
+            "in": "query",
+            "description": "JWT",
+            "type": "apiKey"
+          }
+        ],
+        "responses": {
+          "500": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
     "/map/{latt}/{long}/{category}":{
       "get": {
         "tags": [
           "map"
         ],
-        "summary": "Show all of stores or specific of stores around user",
+        "summary": "Show all of stores or specific of stores around user with category",
         "description": "",
         "operationId": "map",
         "produces": [
@@ -407,6 +463,7 @@
             "name": "category",
             "in": "path",
             "description": "category of store",
+            "required": true,
             "type": "string"
           },
           {
