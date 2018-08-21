@@ -58,11 +58,12 @@ router.get('/:latt/:long/:category?', function (req, res, next) {
                 });
                 callback("find nearby stores with category success");
             }else{
-                res.status(500).send({
-                    stat : "fail",
-                    msgs : "Can't find store data with category"
+                res.status(201).send({
+                    stat : "success",
+                    msgs : "but no such stores around locaion!!!!",
+                    data : finalResults
                 });
-                callback("Can't find store data with category");
+                callback("but no such stores around locaion!!!!");
             }
         }
     ];

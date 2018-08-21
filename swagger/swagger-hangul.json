@@ -374,12 +374,68 @@
         }
       }
     },
+    "/map/{latt}/{long}":{
+      "get": {
+        "tags": [
+          "map"
+        ],
+        "summary": "카테고리 상관 없이 사용자 위치 반경 상점들의 정보",
+        "description": "",
+        "operationId": "map",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "latt",
+            "in": "path",
+            "description": "사용자의 위도",
+            "required": true,
+            "type": "number",
+            "format": "float"
+          },
+          {
+            "name": "long",
+            "in": "path",
+            "description": "사용자의 경도",
+            "required": true,
+            "type": "number",
+            "format": "float"
+          },
+          {
+            "name": "distance",
+            "in": "query",
+            "description": "반경 거리",
+            "type": "number",
+            "format" : "float"
+          },
+          {
+            "name": "X-Access-Token",
+            "in": "header",
+            "description": "JWT",
+            "type": "apiKey"
+          },
+          {
+            "name": "token",
+            "in": "query",
+            "description": "JWT",
+            "type": "apiKey"
+          }
+        ],
+        "responses": {
+          "500": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
     "/map/{latt}/{long}/{category}":{
       "get": {
         "tags": [
           "map"
         ],
-        "summary": "사용자 위치 반경 상점들의 정보",
+        "summary": "카테고리에 기반한 사용자 위치 반경 상점들의 정보",
         "description": "",
         "operationId": "map",
         "produces": [
@@ -406,6 +462,7 @@
           {
             "name": "category",
             "in": "path",
+            "required": true,
             "description": "찾고자 하는 혜택의 카테고리",
             "type": "string"
           },

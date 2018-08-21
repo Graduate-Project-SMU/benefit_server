@@ -4,7 +4,7 @@ var mongoose = require('mongoose');
 var crypto = require('crypto');
 var UserData = require('../../config/user_dbconfig');
 var a_benefitData = require('../../config/a_benefit_dbconfig');
-var o_benefitData = require('../../config/o_benefit_dbconfig')
+var o_benefitData = require('../../config/o_benefit_dbconfig');
 var storeData = require('../../config/store_dbconfig');
 let storeSchema = require('../../config/store');
 var async = require('async');
@@ -85,7 +85,7 @@ router.get('/:latt/:long', function (req, res, next) {
                                 branch: data[0].branch,
                                 address: data[0].address,
                                 telephone: data[0].telephone,
-                                img: o_benefit[0].o_company.img
+                                img: data[0].img
                             },
                             o_benefit: o_benefit[0].o_company.content,
                             a_benefit: a_benefit[0].a_company.content
@@ -100,7 +100,7 @@ router.get('/:latt/:long', function (req, res, next) {
                                 branch: data[0].branch,
                                 address: data[0].address,
                                 telephone: data[0].telephone,
-                                img: o_benefit[0].o_company.img
+                                img: data[0].img
                             },
                             o_benefit: o_benefit[0].o_company.content,
                             a_benefit: null
@@ -115,7 +115,7 @@ router.get('/:latt/:long', function (req, res, next) {
                                 branch: data[0].branch,
                                 address: data[0].address,
                                 telephone: data[0].telephone,
-                                img: a_benefit[0].a_company.img
+                                img: data[0].img
                             },
                             o_benefit: null,
                             a_benefit: a_benefit[0].a_company.content
