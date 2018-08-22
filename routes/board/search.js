@@ -6,13 +6,15 @@ let authMiddleware = require('../middleware/auth');
 
 router.use('/', authMiddleware);
 router.post('/', function (req, res, next) {
-    let title = req.body.text; let content = req.body.text;
+    let text = '.*' + req.body.text + '.*';
     let titleArray = [];
     let contentArray = [];
+    console.log(req.body.text);
+    console.log(text);
     let taskArray = [
         (callback) => {
-            //역순으로 보여준다.
-            boardSchema.find({ title : { "$in" : [title]}}).sort('-writetime').exec((err, data) => {
+            //포함된 문자열을 보여준다.
+            boardSchema.find({ title : {$regex : text}}).sort('-writetime').exec((err, data) => {
                 if (err) {
                     res.status(500).send({
                         stat: "fail",
@@ -31,8 +33,8 @@ router.post('/', function (req, res, next) {
             });
         },
         (callback) => {
-            //역순으로 보여준다.
-            boardSchema.find({ content : { "$in" : [content]}}).sort('-writetime').exec((err, data) => {
+            //포함된 문자열을 보여준다.
+            boardSchema.find({ content : {$regex : text}}).sort('-writetime').exec((err, data) => {
                 if (err) {
                     res.status(500).send({
                         stat: "fail",
@@ -51,6 +53,9 @@ router.post('/', function (req, res, next) {
             });
         },
         (callback) => {
+            console.log(titleArray);
+            console.log('-----');
+            console.log(contentArray);
             let data = [];
             for(let i in titleArray){
                 data.push(titleArray[i]);
