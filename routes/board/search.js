@@ -53,17 +53,18 @@ router.post('/', function (req, res, next) {
             });
         },
         (callback) => {
-            console.log(titleArray);
-            console.log('-----');
-            console.log(contentArray);
             let data = [];
             for(let i in titleArray){
+                // console.log(titleArray[i]);
                 data.push(titleArray[i]);
             }
             for(let i in contentArray){
                 let inArray = false;
                 for(let j in titleArray){
-                    if(contentArray[i].writetime == titleArray[j].writetime) inArray = true;
+                    // object to string을 통하여 string 비교!
+                    if((contentArray[i]._id+"") == (titleArray[j]._id+"")){
+                        inArray = true;
+                    }
                 }
                 if(!inArray) data.push(contentArray[i]);
             }
