@@ -6,10 +6,13 @@ let storeSchema = require('../../config/store');
 var a_benefitData = require('../../config/a_benefit_dbconfig');
 var o_benefitData = require('../../config/o_benefit_dbconfig');
 
+let a_benefit_datas = [];
+let o_benefit_datas = [];
+
 router.post('/', function (req, res, next) {
         let taskArray = [
             (callback) => {
-                a_benefitData.find({}, (err, a_benefit_datas) => {
+                a_benefitData.find({}, (err, data) => {
                     if (err) {
                         res.status(500).send({
                             stat: "fail",
@@ -17,14 +20,17 @@ router.post('/', function (req, res, next) {
                         });
                     }
                     else {
-                        callback(null, a_benefit_datas);
+                        for (let i in data) {
+                            a_benefit_datas.push(data[i]);
+                        }
+                        callback(null);
                     }
                 });
 
             },
-            (a_benefit_datas, callback) => {
+            (callback) => {
 
-                o_benefitData.find({}, (err, o_benefit_datas) => {
+                o_benefitData.find({}, (err, data) => {
                     if (err) {
                         res.status(500).send({
                             stat: "fail",
@@ -32,15 +38,14 @@ router.post('/', function (req, res, next) {
                         });
                     }
                     else {
-                        callback(null, a_benefit_datas, o_benefit_datas)
+                        for (let i in data) {
+                            o_benefit_datas.push(data[i]);
+                        }
+                        callback(null);
                     }
                 });
             },
-            (a_benefit_datas, o_benefit_datas, callback) => {
-                console.log("!!!!");
-                callback(null, a_benefit_datas, o_benefit_datas);
-            },
-            (a_benefit_datas, o_benefit_datas, callback) => {
+            (callback) => {
                 storeData2.find({}, function (err, datas) {
                     if (err) {
                         res.status(500).send({
@@ -49,16 +54,23 @@ router.post('/', function (req, res, next) {
                         });
                         callback(err);
                     } else {
-                        callback(null, a_benefit_datas, o_benefit_datas, datas);
+                        callback(null, datas);
                     }
                 });
             },
-            (a_benefit_datas, o_benefit_datas, datas, callback) => {
+            (datas, callback) => {
+                function doSave(item){
+                    let insertData = new storeSchema(item);
+                    insertData.save((err) => {
+                        if (err) {
+                            console.log(err);
+                        }
+                    });
+                }
                 function aIdAndoIdfind(count) {
                     let a_data = null;
                     let o_data = null;
                     let category = null;
-
                     for (let i = 0; i < a_benefit_datas.length; i++) {
                         if (datas[count].company == a_benefit_datas[i].company) {
                             a_data = a_benefit_datas[i]._id;
@@ -71,32 +83,38 @@ router.post('/', function (req, res, next) {
                             category = o_benefit_datas[i].category;
                         }
                     }
-                    if (a_data || o_data) {
-                        let long = (datas[count].location).coordinates[0];
-                        let lat = (datas[count].location).coordinates[1];
-                        let item = {
-                            company: datas[count].company,
-                            branch: datas[count].branch,
-                            address: datas[count].address,
-                            telephone: datas[count].telephone,
-                            a_company: a_data,
-                            o_company: o_data,
-                            category : category,
-                            location: {
-                                type: "Point",
-                                coordinates: [long, lat]
-                            },
-                            latitude : lat,
-                            longitude : long
-                        };
-                        let insertData = new storeSchema(item);
-                        insertData.save((err) => {
-                            if (err) {
-                                console.log(err);
-                            }
-                        });
+                    let long = (datas[count].location).coordinates[0];
+                    let lat = (datas[count].location).coordinates[1];
+                    let item = {
+                        company: datas[count].company,
+                        branch: datas[count].branch,
+                        address: datas[count].address,
+                        telephone: datas[count].telephone,
+                        a_company: null,
+                        o_company: null,
+                        category: category,
+                        location: {
+                            type: "Point",
+                            coordinates: [long, lat]
+                        },
+                        latitude: lat,
+                        longitude: long
+                    };
+                    if (a_data && !o_data) {
+                        item.a_company = a_data;
+                        doSave(item);
+                    }
+                    if (!a_data && o_data) {
+                        item.o_company = o_data;
+                        doSave(item);
+                    }
+                    if (a_data && o_data) {
+                        item.a_company = a_data;
+                        item.o_company = o_data;
+                        doSave(item);
                     }
                 }
+
                 for (let i = 0; i < datas.length; i++) {
                     aIdAndoIdfind(i);
                 }

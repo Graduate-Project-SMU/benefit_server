@@ -374,6 +374,52 @@
         }
       }
     },
+    "/board/search":{
+      "post":{
+        "tags": [
+          "board"
+        ],
+        "summary": "제목, 내용 기반으로 특정 글을 찾는다",
+        "description": "",
+        "operationId": "boardSearch",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "X-Access-Token",
+            "in": "header",
+            "description": "JWT",
+            "type": "apiKey"
+          },
+          {
+            "name": "token",
+            "in": "query",
+            "description": "JWT",
+            "type": "apiKey"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "찾고자 하는 검색 내용 입력",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/BoardSearch"
+            }
+          }
+        ],
+        "responses": {
+          "500": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
     "/map/{latt}/{long}":{
       "get": {
         "tags": [
@@ -648,6 +694,17 @@
       },
       "xml": {
         "name": "BoardEdit"
+      }
+    },
+    "BoardSearch":{
+      "type": "object",
+      "properties": {
+        "text": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "BoardSearch"
       }
     },
     "Order": {
