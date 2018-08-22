@@ -430,6 +430,52 @@
         }
       }
     },
+    "/board/search":{
+      "post":{
+        "tags": [
+          "board"
+        ],
+        "summary": "Search Specific Board by title, content",
+        "description": "",
+        "operationId": "boardSearch",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "X-Access-Token",
+            "in": "header",
+            "description": "JWT",
+            "type": "apiKey"
+          },
+          {
+            "name": "token",
+            "in": "query",
+            "description": "JWT",
+            "type": "apiKey"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "enter text to find board",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/BoardSearch"
+            }
+          }
+        ],
+        "responses": {
+          "500": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
     "/map/{latt}/{long}/{category}":{
       "get": {
         "tags": [
@@ -648,6 +694,17 @@
       },
       "xml": {
         "name": "BoardEdit"
+      }
+    },
+    "BoardSearch":{
+      "type": "object",
+      "properties": {
+        "text": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "BoardSearch"
       }
     },
     "Order": {
