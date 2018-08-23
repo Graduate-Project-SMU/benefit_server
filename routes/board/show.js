@@ -55,7 +55,7 @@ router.get('/', function (req, res, next) {
                 doSetFlag(i);
             }
             console.log(data[0].isU);
-            if (data) {
+            if (temp) {
                 res.status(200).send({
                     stat: "success",
                     data: temp
