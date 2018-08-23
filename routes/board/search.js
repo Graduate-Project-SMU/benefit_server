@@ -54,27 +54,60 @@ router.post('/', function (req, res, next) {
         },
         (callback) => {
             let data = [];
-            for(let i in titleArray){
+            for (let i in titleArray) {
                 // console.log(titleArray[i]);
                 data.push(titleArray[i]);
             }
-            for(let i in contentArray){
+            for (let i in contentArray) {
                 let inArray = false;
-                for(let j in titleArray){
+                for (let j in titleArray) {
                     // object to string을 통하여 string 비교!
-                    if((contentArray[i]._id+"") == (titleArray[j]._id+"")){
+                    if ((contentArray[i]._id + "") == (titleArray[j]._id + "")) {
                         inArray = true;
                     }
                 }
-                if(!inArray) data.push(contentArray[i]);
+                if (!inArray) data.push(contentArray[i]);
             }
-            data.sort(function(x, y){
+            data.sort(function (x, y) {
                 return (x.writetime - y.writetime <= 0);
             });
-            if (data) {
+            callback(null, data);
+        },
+        (data, callback)=> {
+            let nickname = req.decoded.nickname;
+            let temp = [];
+            let doSetFlag = num => {
+                if(data[num].author == nickname){
+                    temp.push({
+                        _id : data[num]._id,
+                        author: data[num].author,
+                        title: data[num].title,
+                        content: data[num].content,
+                        writetime: data[num].writetime,
+                        flag : 1,
+                        __v: 0
+
+                    });
+                }
+                else{
+                    temp.push({
+                        _id : data[num]._id,
+                        author: data[num].author,
+                        title: data[num].title,
+                        content: data[num].content,
+                        writetime: data[num].writetime,
+                        flag : 0,
+                        __v: 0
+                    });
+                }
+            };
+            for (let i in data) {
+                doSetFlag(i);
+            }
+            if (temp) {
                 res.status(200).send({
                     stat: "success",
-                    data: data
+                    data: temp
                 });
                 callback("find boards success", null);
             } else {
@@ -84,8 +117,10 @@ router.post('/', function (req, res, next) {
                 });
                 callback("can't find boards");
             }
-
         }
+
+
+
     ];
     async.waterfall(taskArray, (err, result) => {
         if (err) console.log(err);
